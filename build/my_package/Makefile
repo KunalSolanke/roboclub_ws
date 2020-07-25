@@ -80,16 +80,16 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
 
-# Special rule for the target test
-test/fast: test
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
 
-.PHONY : test/fast
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -124,16 +124,16 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
+# Special rule for the target test
+test/fast: test
 
-.PHONY : rebuild_cache/fast
+.PHONY : test/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -303,21 +303,6 @@ std_msgs_generate_messages_cpp/fast:
 .PHONY : std_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-my_package/CMakeFiles/chatter_c.dir/rule:
-	cd /home/kunal/roboclub_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_package/CMakeFiles/chatter_c.dir/rule
-.PHONY : my_package/CMakeFiles/chatter_c.dir/rule
-
-# Convenience name for target.
-chatter_c: my_package/CMakeFiles/chatter_c.dir/rule
-
-.PHONY : chatter_c
-
-# fast build rule for target.
-chatter_c/fast:
-	cd /home/kunal/roboclub_ws/build && $(MAKE) -f my_package/CMakeFiles/chatter_c.dir/build.make my_package/CMakeFiles/chatter_c.dir/build
-.PHONY : chatter_c/fast
-
-# Convenience name for target.
 my_package/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/kunal/roboclub_ws/build && $(MAKE) -f CMakeFiles/Makefile2 my_package/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
 .PHONY : my_package/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
@@ -407,33 +392,6 @@ std_msgs_generate_messages_py/fast:
 	cd /home/kunal/roboclub_ws/build && $(MAKE) -f my_package/CMakeFiles/std_msgs_generate_messages_py.dir/build.make my_package/CMakeFiles/std_msgs_generate_messages_py.dir/build
 .PHONY : std_msgs_generate_messages_py/fast
 
-src/chatter.o: src/chatter.cpp.o
-
-.PHONY : src/chatter.o
-
-# target to build an object file
-src/chatter.cpp.o:
-	cd /home/kunal/roboclub_ws/build && $(MAKE) -f my_package/CMakeFiles/chatter_c.dir/build.make my_package/CMakeFiles/chatter_c.dir/src/chatter.cpp.o
-.PHONY : src/chatter.cpp.o
-
-src/chatter.i: src/chatter.cpp.i
-
-.PHONY : src/chatter.i
-
-# target to preprocess a source file
-src/chatter.cpp.i:
-	cd /home/kunal/roboclub_ws/build && $(MAKE) -f my_package/CMakeFiles/chatter_c.dir/build.make my_package/CMakeFiles/chatter_c.dir/src/chatter.cpp.i
-.PHONY : src/chatter.cpp.i
-
-src/chatter.s: src/chatter.cpp.s
-
-.PHONY : src/chatter.s
-
-# target to generate assembly for a file
-src/chatter.cpp.s:
-	cd /home/kunal/roboclub_ws/build && $(MAKE) -f my_package/CMakeFiles/chatter_c.dir/build.make my_package/CMakeFiles/chatter_c.dir/src/chatter.cpp.s
-.PHONY : src/chatter.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -442,7 +400,7 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... test"
+	@echo "... rebuild_cache"
 	@echo "... list_install_components"
 	@echo "... roscpp_generate_messages_py"
 	@echo "... roscpp_generate_messages_eus"
@@ -455,17 +413,13 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... rebuild_cache"
-	@echo "... chatter_c"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
-	@echo "... src/chatter.o"
-	@echo "... src/chatter.i"
-	@echo "... src/chatter.s"
+	@echo "... test"
 .PHONY : help
 
 

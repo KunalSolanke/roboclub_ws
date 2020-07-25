@@ -402,19 +402,6 @@ std_msgs_generate_messages_cpp/fast:
 .PHONY : std_msgs_generate_messages_cpp/fast
 
 #=============================================================================
-# Target rules for targets named chatter_c
-
-# Build rule for target.
-chatter_c: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 chatter_c
-.PHONY : chatter_c
-
-# fast build rule for target.
-chatter_c/fast:
-	$(MAKE) -f my_package/CMakeFiles/chatter_c.dir/build.make my_package/CMakeFiles/chatter_c.dir/build
-.PHONY : chatter_c/fast
-
-#=============================================================================
 # Target rules for targets named rosgraph_msgs_generate_messages_nodejs
 
 # Build rule for target.
@@ -523,7 +510,6 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... chatter_c"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... std_msgs_generate_messages_eus"

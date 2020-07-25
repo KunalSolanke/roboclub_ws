@@ -133,8 +133,9 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(chatter_c src/chatter.cpp)
-#add_executable(chatter src/test.py)
+#add_executable(chatter_c src/chatter.cpp)
+add_executable(subscriber  src/listener.cpp)
+add_executable(publisher  src/publisher.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -147,9 +148,17 @@ add_executable(chatter_c src/chatter.cpp)
 #add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(chatter_c
+#target_link_libraries(chatter_c
+	#  ${catkin_LIBRARIES}
+   # )
+target_link_libraries(publisher
    ${catkin_LIBRARIES}
- )
+)
+
+target_link_libraries(subscriber
+   ${catkin_LIBRARIES}
+)
+
 #target_link_libraries(chatter
 	#  ${catkin_LIBRARIES}
    # )
@@ -164,7 +173,9 @@ target_link_libraries(chatter_c
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-   src/test.py
+	# scripts/test.py
+   scrips/publisher.py
+   scripts/listener.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
