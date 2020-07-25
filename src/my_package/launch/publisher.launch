@@ -1,0 +1,5 @@
+<launch>
+   <node pkg="my_package" type="publisher.py" output="screen" name ="assignment2_publisher">
+   </node>
+</launch>
+
